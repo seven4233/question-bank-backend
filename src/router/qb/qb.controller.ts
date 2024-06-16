@@ -1,26 +1,45 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Req, ParseIntPipe, Query } from '@nestjs/common';
-import { QbService } from './qb.service';
 import { CreateQbDto } from './dto/create-qb.dto';
 import { UpdateQbDto } from './dto/update-qb.dto';
+import { QbService } from "./qb.service";
 
 @Controller('qb')
 export class QbController {
   constructor(private readonly qbService: QbService) {}
 
-  // 获取题库列表
-  @Get('bank')
-  queryBankList(){
-    return this.qbService.queryBankList()
+  //  获取题库列表
+  @Get('/bank')
+  getQuestionBankList() {
+    return this.qbService.getBankList()
+  }
+
+  // 获取分类信息
+  @Get(":id/sort")
+  sortInfo(@Req() req, @Param('id', ParseIntPipe) bankId) {
+    const userId = req.currentUser?.id
+    return this.qbService.getSortInfo(userId, bankId)
   }
 
 
-  // 获取所有单选题
-  @Get('single')
-  querySingleListAll(@Req() req:any ,@Query() query){
+  // 获取单选题
+  @Get(":id/single")
+  singleList(@Req() req, @Param("id", ParseIntPipe) bankId) {
+    const userId = req.currentUser?.id
+    return this.qbService.getSingleList(userId, bankId)
+  }
+
+  // 获取多选题
+  @Get(":id/multiple")
+  mulList(@Req() req, @Param("id", ParseIntPipe) bankId) {
+    const userId = req.currentUser?.id
+    return this.qbService.getMulList(userId, bankId)
+  }
+  // 获取判断题
+  @Get(":id/judge")
+  judgeList(@Req() req, @Param("id", ParseIntPipe) bankId) {
 
     const userId = req.currentUser?.id
-
-    return this.qbService.querySingleListAll(userId,query.bankId)
+    return this.qbService.getJudgeList(userId, bankId)
   }
 
 
@@ -31,19 +50,15 @@ export class QbController {
     return this.qbService.insertFinishedQuestion(body, userId)
   }
 
-  // 获取已做题目
-  @Get('done')
-  queryDoneQuestion(@Req() req){
-    const { id: userId } = req.currentUser
-    return this.qbService.queryDoneList(userId)
+  // 浏览加yi
+  @Get("/fever")
+  feverAddOne(@Query() query){
+    console.log(query)
+    const bankId = query?.bankId
+    return this.qbService.addFever(+bankId);
   }
 
 
-  // 所有题目
-  @Get()
-  findAll() {
-    return this.qbService.findAll();
-  }
 
 
 }

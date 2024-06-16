@@ -16,13 +16,10 @@ export class UserQuestion {
   bank_id: number;
 
   @Column()
-  question_id: string
+  question_num: string
 
   @Column()
-  sort: string
-
-  @Column()
-  option: string
+  question_sort: string
 
   @CreateDateColumn()
   createdAt: Date

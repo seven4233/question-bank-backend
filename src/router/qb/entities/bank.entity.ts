@@ -3,6 +3,7 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } f
 
 @Entity()
 export class Bank {
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -10,13 +11,17 @@ export class Bank {
     @Column()
     year: string;
 
+    // 名字
     @Column()
     name: string;
  
+    //热度
     @Column({type: 'int', default: 0})
     fever: number;
 
-    @CreateDateColumn()
-    createdAt: Date
+
+  
+      @CreateDateColumn()
+      createdAt: Date
 
 }
