@@ -3,6 +3,7 @@ import { MultipleChoiceOptions } from "./entities/mco.entity";
 import { QuestionBank } from "./entities/qb.entity";
 import { Answers } from "./entities/answers.entity";
 import { Bank } from "./entities/bank.entity";
+import { UserQuestion } from './entities/uq.entity';
 
 export const qbProviders = [
     {
@@ -23,6 +24,11 @@ export const qbProviders = [
     {
         provide:'BANK_REPOSITORY',
         useFactory:(dataSource:DataSource)=> dataSource.getRepository(Bank),
+        inject:["DATA_SOURCE"]
+    },
+    {
+        provide:'UQ_REPOSITORY',
+        useFactory:(dataSource:DataSource)=> dataSource.getRepository(UserQuestion),
         inject:["DATA_SOURCE"]
     },
 ]
