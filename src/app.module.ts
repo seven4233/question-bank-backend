@@ -17,7 +17,7 @@ export class AppModule implements NestModule {
       .apply(AuthMiddle)
       .exclude('/pb/bank', '/user/login',
        )
-      .forRoutes('qb', 'user', )
+      .forRoutes( 'user', )
   }
 }
 

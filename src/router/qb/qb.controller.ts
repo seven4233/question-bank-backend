@@ -7,10 +7,11 @@ import { UpdateQbDto } from './dto/update-qb.dto';
 export class QbController {
   constructor(private readonly qbService: QbService) {}
 
-  @Post()
-  create(@Body() createQbDto: CreateQbDto) {
-    return this.qbService.create(createQbDto);
+  @Get('bank')
+  queryBankList(){
+    return this.qbService.queryBankList()
   }
+
 
 
   // 所有题目
@@ -19,18 +20,5 @@ export class QbController {
     return this.qbService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.qbService.findOne(+id);
-  }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQbDto: UpdateQbDto) {
-    return this.qbService.update(+id, updateQbDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.qbService.remove(+id);
-  }
 }

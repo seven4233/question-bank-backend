@@ -19,10 +19,11 @@ export class QbService {
              ) { }
 
 
-  create(createQbDto: CreateQbDto) {
-    return 'This action adds a new qb';
+  //
+  async queryBankList(){
+    const bank_list = await this.bank.find()
+    return {result:bank_list, code :0, message:'ok'}
   }
-
 
   // 所有题目
   async findAll() {
@@ -38,15 +39,5 @@ export class QbService {
     return {res: qb_list};
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} qb`;
-  }
 
-  update(id: number, updateQbDto: UpdateQbDto) {
-    return `This action updates a #${id} qb`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} qb`;
-  }
 }
