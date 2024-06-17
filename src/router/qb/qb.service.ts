@@ -72,9 +72,9 @@ export class QbService {
       return item.question_num
     })
     const singleList = await this.single.find({
-      take: 5,
+      take: 20,
       where: {
-        question_num: Not(In(doneArr)),
+        // question_num: Not(In(doneArr)),
         bank_id: bankId
       }
     })
