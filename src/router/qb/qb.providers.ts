@@ -6,6 +6,7 @@ import { Blank } from "./entities/blank.entity";
 import { Judge } from "./entities/judge.entity";
 import { UserQuestion } from "./entities/uq.entity";
 import { UserFavor } from "./entities/user_favor.entity";
+import { UserComment } from "./entities/uc.entity";
 
 export const qbProviders = [
     {
@@ -43,6 +44,12 @@ export const qbProviders = [
     {
         provide:'UF_REPOSITORY',
         useFactory:(dataSource:DataSource)=> dataSource.getRepository(UserFavor),
+        inject:["DATA_SOURCE"]
+    }
+    ,
+    {
+        provide:'UC_REPOSITORY',
+        useFactory:(dataSource:DataSource)=> dataSource.getRepository(UserComment),
         inject:["DATA_SOURCE"]
     }
 

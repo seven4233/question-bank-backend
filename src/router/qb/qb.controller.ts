@@ -21,6 +21,8 @@ export class QbController {
   }
 
 
+
+
   // 获取单选题
   @Get(":id/single")
   singleList(@Req() req, @Param("id", ParseIntPipe) bankId) {
@@ -42,6 +44,25 @@ export class QbController {
     return this.qbService.getJudgeList(userId, bankId)
   }
 
+  // 一题一交
+  @Post("/ok")
+  addOneDoneQuestion(@Body() body, @Req() req){
+    const { id: userId } = req.currentUser
+    const {bank_id, question_num, your_answer, question_sort} = body
+    console.log(body);
+
+    return this.qbService.insertOneToUq(userId, bank_id,question_num,question_sort, your_answer)
+  }
+
+  // 重做
+  @Get("redo")
+  reDo( @Req() req, @Query() query){
+    const { id: userId } = req.currentUser
+
+    const {bank_id, question_sort} = query
+    console.log(query);
+    return this.qbService.redo(userId, bank_id,question_sort)
+  }
 
   // 添加已完成题目
   @Post('/finish')
@@ -56,6 +77,16 @@ export class QbController {
     console.log(query)
     const bankId = query?.bankId
     return this.qbService.addFever(+bankId);
+  }
+
+
+//   添加评论
+  @Post('comment')
+  addComment(@Body() body, @Req() req, @Query() query){
+
+    const { id: userId } = req.currentUser?.id
+    return this.qbService.addComment(body, userId)
+
   }
 
 

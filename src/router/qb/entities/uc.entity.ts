@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, PrimaryGenera
 
 
 @Entity()
-export class UserQuestion {
+export class UserComment {
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,18 +15,17 @@ export class UserQuestion {
   @Column()
   bank_id: number;
 
+  // 题号
   @Column()
   question_num: string
 
 
-
-  @Column()
+  @Column({nullable: true})
   question_sort: string
 
-  // 你的答案
+  // 评论内容
   @Column()
-  your_answer: string
-
+  content: string
 
   @CreateDateColumn()
   createdAt: Date
